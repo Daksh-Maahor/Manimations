@@ -290,5 +290,5 @@ class Demo(ThreeDScene):
 
         self.add(axes, graph)
         self.begin_ambient_camera_rotation(rate=PI/20)
-        self.play(Create(surface))
-        self.play(three_d_stuff.animate.shift(LEFT * 5))
+        self.play(Create(surface), run_time = 5)
+        self.play(three_d_stuff.animate.shift(LEFT * 5), run_time=5)
