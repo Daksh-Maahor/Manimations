@@ -1,0 +1,10 @@
+# This file is used internally by FFMPEG.
+file 'file:/home/daksh-maahor/Programming/Python/manimations/media/videos/main/2160p60/partial_movie_files/Vectors/1457378895_483583622_223132457.mp4'
+file 'file:/home/daksh-maahor/Programming/Python/manimations/media/videos/main/2160p60/partial_movie_files/Vectors/1993220219_1862968402_1628544584.mp4'
+file 'file:/home/daksh-maahor/Programming/Python/manimations/media/videos/main/2160p60/partial_movie_files/Vectors/1993220219_3821112643_640014943.mp4'
+file 'file:/home/daksh-maahor/Programming/Python/manimations/media/videos/main/2160p60/partial_movie_files/Vectors/1993220219_2692120768_762779352.mp4'
+file 'file:/home/daksh-maahor/Programming/Python/manimations/media/videos/main/2160p60/partial_movie_files/Vectors/1993220219_1754310298_848268030.mp4'
+file 'file:/home/daksh-maahor/Programming/Python/manimations/media/videos/main/2160p60/partial_movie_files/Vectors/1993220219_1541170663_4199787218.mp4'
+file 'file:/home/daksh-maahor/Programming/Python/manimations/media/videos/main/2160p60/partial_movie_files/Vectors/1993220219_1754310298_301947853.mp4'
+file 'file:/home/daksh-maahor/Programming/Python/manimations/media/videos/main/2160p60/partial_movie_files/Vectors/1993220219_435821756_640014943.mp4'
+file 'file:/home/daksh-maahor/Programming/Python/manimations/media/videos/main/2160p60/partial_movie_files/Vectors/1993220219_277624137_3443206013.mp4'
