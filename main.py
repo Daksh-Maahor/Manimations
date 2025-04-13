@@ -94,7 +94,7 @@ class Graphing(Scene):
 
         y_val = self.f(-2)
 
-        horiz_line = Line(start=my_plane.c2p(0, y_val), end=my_plane.c2p(-2, y_val), stroke_color=YELLOW, stroke_width=10)
+        horiz_line = Line(start=my_plane.c2p(0, y_val), end=my_plane.c2p(-2, y_val), stroke_color=YELLOW, stroke_width=1)
 
         self.play(DrawBorderThenFill(my_plane))
         self.play(Create(my_function), Write(label))
