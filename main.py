@@ -122,7 +122,7 @@ class CoordinateSystem(Scene):
 
 class PolarPlaneScene(Scene):
     def construct(self):
-        e = ValueTracker(0.01)
+        e = ValueTracker(0.05)
 
         plane = PolarPlane(radius_max=3)
         plane.add_coordinates()
@@ -142,8 +142,8 @@ class PolarPlaneScene(Scene):
         title = MathTex("f(\\theta) = 2sin(3\\theta)", color=GREEN).next_to(axes, UP, buff=0.2)
 
         self.play(LaggedStart(
-            Write(plane), Create(axes), Write(title), run_time=3, lag_ratio=0.5
+            Write(plane), Create(axes), Write(title), run_time=10, lag_ratio=0.5
         ))
         self.add(graph1, graph2, dot1, dot2)
-        self.play(e.animate.set_value(PI), run_time=PI, rate_func = linear)
+        self.play(e.animate.set_value(PI), run_time=10, rate_func = linear)
         self.wait()
