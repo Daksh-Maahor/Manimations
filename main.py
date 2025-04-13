@@ -175,9 +175,9 @@ class Matrix(LinearTransformationScene):
         matrix_tex = MathTex("A = \\begin{bmatrix} 2 & 3 \\\ -3 & 2 \\end{bmatrix}").to_edge(UL).add_background_rectangle()
 
         unit_square = self.get_unit_square()
-        text = always_redraw(lambda : Tex("Det(A)").set(width=0.7).move_to(unit_square.get_center()))
-
+        self.get_basis_vectors()
         vect = self.get_vector([1, -2], color=PURPLE_B)
+        text = always_redraw(lambda : MathTex(f"vect = {vect.get_x()}, {vect.get_y()}").set(width=0.7).move_to(unit_square.get_center()))
 
         rect1 = Rectangle(height=2, width=1, stroke_color=BLUE_A, fill_color=BLUE_D, fill_opacity=0.6).shift(UP * 2 + LEFT * 2)
 
