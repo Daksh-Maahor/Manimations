@@ -170,7 +170,7 @@ class Matrix(LinearTransformationScene):
         )
 
     def construct(self):
-        matrix = [[1, 2], [2, 1]]
+        matrix = [[1, 3], [2, 1]]
 
         matrix_tex = MathTex("A = \\begin{bmatrix} 1 & 2 \\\ 2 & 1 \\end{bmatrix}").to_edge(UL).add_background_rectangle()
 
