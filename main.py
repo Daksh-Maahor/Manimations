@@ -170,9 +170,9 @@ class Matrix(LinearTransformationScene):
         )
 
     def construct(self):
-        matrix = [[1, 3], [2, 1]]
+        matrix = [[2, 3], [-3, 2]]
 
-        matrix_tex = MathTex("A = \\begin{bmatrix} 1 & 2 \\\ 2 & 1 \\end{bmatrix}").to_edge(UL).add_background_rectangle()
+        matrix_tex = MathTex("A = \\begin{bmatrix} 2 & 3 \\\ -3 & 2 \\end{bmatrix}").to_edge(UL).add_background_rectangle()
 
         unit_square = self.get_unit_square()
         text = always_redraw(lambda : Tex("Det(A)").set(width=0.7).move_to(unit_square.get_center()))
