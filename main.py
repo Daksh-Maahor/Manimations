@@ -118,3 +118,4 @@ class CoordinateSystem(Scene):
         self.play(Write(plane), Create(axes))
         self.play(Create(plane_graph), Create(axes_graph), run_time=2)
         self.add(area, v_lines)
+        self.wait(2)
