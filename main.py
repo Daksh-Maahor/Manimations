@@ -307,7 +307,7 @@ class ThreeDCone(ThreeDScene):
 
         surface = always_redraw(
             lambda : Surface(
-                lambda u, v : axes.c2p(v, v*np.cos(u), v*np.sin(u))
+                lambda u, v : axes.c2p(v, v*np.cos(u), v*np.sin(u)),
                 u_range = [0, e.get_value()],
                 v_range = [0, 3],
                 checkerboard_colors = [GREEN, PURPLE]
