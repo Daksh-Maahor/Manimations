@@ -222,3 +222,5 @@ class VGroupsAnim(Scene):
         self.wait()
         self.add(box)
         self.wait()
+        self.play(stuff.animate.move_to(box.get_center()).set(width=1.2), run_time=3)
+        self.wait()
