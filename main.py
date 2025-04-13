@@ -101,3 +101,20 @@ class Graphing(Scene):
         self.play(FadeIn(area))
         self.play(Create(horiz_line))
 
+class CoordinateSystem(Scene):
+    def construct(self):
+        plane = NumberPlane(x_range=[-4, 4, 1], x_length=4, y_range=[0, 20, 5], y_length=4)
+        plane.add_coordinates()
+        plane.shift(LEFT * 3)
+        plane_graph = plane.plot(lambda x : x**2, x_range=[-4, 4], color=GREEN)
+        area = plane.get_riemann_rectangles(graph=plane_graph, x_range=[-2, 2], dx=0.05)
+
+        axes = Axes(x_range=[-4, 4, 1], x_length=4, y_range=[-20, 20, 5], y_length=4)
+        axes.add_coordinates()
+        axes.shift(RIGHT * 3)
+        axes_graph = axes.plot(lambda x : 2*x, x_range=[-4, 4], color=YELLOW)
+        v_lines = axes.get_vertical_lines_to_graph(axes_graph, x_range=[-3, 3], num_lines=12)
+
+        self.play(Write(plane), Create(axes))
+        self.play(Create(plane_graph), Create(axes_graph), run_time=2)
+        self.add(area, v_lines)
