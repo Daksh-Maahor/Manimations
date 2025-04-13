@@ -177,7 +177,7 @@ class Matrix(LinearTransformationScene):
         unit_square = self.get_unit_square()
         self.get_basis_vectors()
         vect = self.get_vector([1, -2], color=PURPLE_B)
-        text = always_redraw(lambda : MathTex(f"vect = {vect.get_x()}, {vect.get_y()}").set(width=0.7).move_to(unit_square.get_center()))
+        text = always_redraw(lambda : MathTex("det(A)").set(width=0.7).move_to(unit_square.get_center()))
 
         rect1 = Rectangle(height=2, width=1, stroke_color=BLUE_A, fill_color=BLUE_D, fill_opacity=0.6).shift(UP * 2 + LEFT * 2)
 
