@@ -325,3 +325,15 @@ class ThreeDCone(ThreeDScene):
 
         self.stop_ambient_camera_rotation()
         self.wait()
+
+def get_horizontal_line_to_graph(axes, function, x, width, color):
+    result = VGroup()
+    line = DashedLine(
+        start = axes.c2p(0, function.underlying_function(x)),
+        end = axes.c2p(x, function.underlying_function(x)),
+        stroke_width = width,
+        stroke_color = color
+    )
+    dot = Dot().set_color(color).move_to(axes.c2p(x, function.underlying_function(x)))
+    result.add(line, dot)
+    return result
