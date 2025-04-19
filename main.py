@@ -430,3 +430,65 @@ class Derivative(Scene):
         self.add(moving_slope, moving_h_line, func2, slope_value, slope_value_text, dot)
         self.play(k.animate.set_value(3), run_time = 15, rate_func = linear)
         self.wait()
+
+class Test(Scene):
+    def construct(self):
+        S = Tex("S = ")
+        expanded_sum = MathTex("\\frac{1}{1^2} + \\frac{1}{2^2} + \\frac{1}{3^2} + \\cdots").set_color_by_gradient(BLUE, GREEN, YELLOW)
+        compressed_sum = MathTex("\\sum_{n=1}^{\\infty} \\frac{1}{n^2}").set_color_by_gradient(BLUE, GREEN, YELLOW)
+        answer = MathTex("= \\frac{\\pi^2}{6}").set_color_by_gradient(BLUE, GREEN, YELLOW)
+
+        S.next_to(expanded_sum, LEFT, buff=0.1)
+        answer.next_to(compressed_sum, DOWN, buff=0.1)
+
+        self.play(Write(S), run_time = 1)
+        self.play(Write(expanded_sum), run_time = 3)
+        self.play(Transform(expanded_sum, compressed_sum), run_time = 3)
+        self.play(Write(answer), run_time = 3)
+
+        self.wait()
+
+class Integral(Scene):
+    def construct(self):
+        title = Tex("Solving an Integral").set_color_by_gradient(BLUE, GREEN, YELLOW)
+        title.add_background_rectangle()
+        self.play(Write(title), run_time=2)
+        self.wait(1)
+        self.play(title.animate.to_edge(UP, buff=1.0), run_time=2)
+
+        integral = MathTex("\\int_{0}^{\\infty} \\frac{1}{1+x^2} \\, dx").set_color_by_gradient(BLUE, GREEN, YELLOW)
+
+        self.play(Write(integral), run_time=3)
+        self.wait(1)
+
+        substitution = MathTex("x = \\tan{\\theta}").set_color_by_gradient(BLUE, GREEN, YELLOW)
+        differential = MathTex("dx = \\sec^2{\\theta} \\, d\\theta").set_color_by_gradient(BLUE, GREEN, YELLOW)
+        substitution.next_to(integral, DOWN, buff=0.5)
+        differential.next_to(substitution, DOWN, buff=0.5)
+        self.play(Write(substitution), run_time=3)
+        self.play(Write(differential), run_time=3)
+        self.wait(1)
+
+        integral2 = MathTex("\\int_{0}^{\\frac{\\pi}{2}} \\frac{\\sec^2{\\theta}}{1+\\tan^2{\\theta}} \\, d\\theta").set_color_by_gradient(BLUE, GREEN, YELLOW)
+        integral2.move_to(integral.get_center())
+        self.play(Transform(integral, integral2), run_time=3)
+        self.wait(1)
+
+        self.play(FadeOut(substitution), FadeOut(differential), run_time=2)
+
+        integral3 = MathTex("\\int_{0}^{\\frac{\\pi}{2}} \\, d\\theta").set_color_by_gradient(BLUE, GREEN, YELLOW)
+        integral3.move_to(integral.get_center())
+
+        self.play(Transform(integral, integral3), run_time=3)
+
+        result = MathTex("= \\frac{\\pi}{2}").set_color_by_gradient(BLUE, GREEN, YELLOW)
+        result.next_to(integral, DOWN, buff=0.5)
+        self.play(Write(result), run_time=3)
+        self.wait(1)
+
+        final_result = MathTex("\\int_{0}^{\\infty} \\frac{1}{1+x^2} \\, dx = \\frac{\\pi}{2}").set_color_by_gradient(BLUE, GREEN, YELLOW)
+        final_result.move_to(integral.get_center())
+
+        self.play(Transform(integral, final_result), FadeOut(result), run_time=3)
+
+        self.wait()
