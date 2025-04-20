@@ -1,0 +1,5 @@
+# This file is used internally by FFMPEG.
+file 'file:/home/dakshmaahor/Programming/Python/Manim/Manimations/media/videos/main/2160p60/partial_movie_files/RotatingArrows/1457378895_195435356_3362123787.mp4'
+file 'file:/home/dakshmaahor/Programming/Python/Manim/Manimations/media/videos/main/2160p60/partial_movie_files/RotatingArrows/1993220219_2408024828_2489778980.mp4'
+file 'file:/home/dakshmaahor/Programming/Python/Manim/Manimations/media/videos/main/2160p60/partial_movie_files/RotatingArrows/1993220219_3932522881_2335575522.mp4'
+file 'file:/home/dakshmaahor/Programming/Python/Manim/Manimations/media/videos/main/2160p60/partial_movie_files/RotatingArrows/1993220219_2334392282_484171500.mp4'

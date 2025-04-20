@@ -1,4 +1,6 @@
 from manim import *
+import itertools as it
+import numpy as np
 
 class BoxMove(Scene):
     def construct(self):
@@ -401,6 +403,15 @@ class Derivative(Scene):
             )
         )
 
+        moving_v_line = always_redraw(
+            lambda : DashedLine(
+                start = plane2.c2p(k.get_value(), 0),
+                end = plane2.c2p(k.get_value(), func2.underlying_function(k.get_value())),
+                stroke_width = 4,
+                stroke_color = YELLOW
+            )
+        )
+
         slope_value_text = (
             Text("Slope Value : ")
             .next_to(plane1, DOWN, buff=0.1)
@@ -427,7 +438,7 @@ class Derivative(Scene):
             )
         )
 
-        self.add(moving_slope, moving_h_line, func2, slope_value, slope_value_text, dot)
+        self.add(moving_slope, moving_h_line, moving_v_line, func2, slope_value, slope_value_text, dot)
         self.play(k.animate.set_value(3), run_time = 15, rate_func = linear)
         self.wait()
 
@@ -530,3 +541,162 @@ class Integral2(Scene):
         result.next_to(integral, DOWN, buff=0.5)
         self.play(Write(result), run_time=3)
         self.wait()
+
+class RotatingArrows(Scene):
+    def construct(self):
+        frequencies = [-20.0, -19.0, -18.0, -17.0, -16.0, -15.0, -14.0, -13.0, -12.0, -11.0, -10.0, -9.0, -8.0, -7.0, -6.0, -5.0, -4.0, -3.0, -2.0, -1.0, 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0, 20.0]
+        amplitudes = [0.01043114926806085, 0.009643593351586916, 0.009200118733871162, 0.025638791427428538, 0.019908979279643076, 0.021855557473562406, 0.014801051219105289, 0.0027471068922981638, 0.029924248757527923, 0.05698263486120211, 0.02685387569947661, 0.012844547828340597, 0.008839273465624974, 0.08927824014057074, 0.2488978656897346, 0.08371744150573968, 0.022695653703798297, 0.011082371496437928, 0.13399256221225816, 2.0, 0.13399256221225816, 0.011082371496437928, 0.022695653703798297, 0.08371744150573968, 0.2488978656897346, 0.08927824014057074, 0.008839273465624974, 0.012844547828340597, 0.02685387569947661, 0.05698263486120211, 0.029924248757527923, 0.0027471068922981638, 0.014801051219105289, 0.021855557473562406, 0.019908979279643076, 0.025638791427428538, 0.009200118733871162, 0.009643593351586916, 0.01043114926806085, 0.007748423513743007, 0.014374086743600347]
+        phase = [2.5232530916291234, -0.679956744060104, -2.5144869697381416, -2.848018830237726, -3.058893510090971, -0.5401497734800441, 2.718226552706625, -0.022577520846763528, 0.36978140526083253, -0.007150872717065652, 2.6672582609087354, -0.17476561582749248, -1.4803811076055364, -2.8027096009307777, 3.136077203369095, -0.4086862095239852, 2.763599151591405, 3.0510502735229377, 0.3753547415234295, -0.0, -0.3753547415234295, -3.0510502735229377, -2.763599151591405, 0.4086862095239852, -3.136077203369095, 2.8027096009307777, 1.4803811076055364, 0.17476561582749248, -2.6672582609087354, 0.007150872717065652, -0.36978140526083253, 0.022577520846763528, -2.718226552706625, 0.5401497734800441, 3.058893510090971, 2.848018830237726, 2.5144869697381416, 0.679956744060104, -2.5232530916291234, -0.06243398869742327, -0.42985653066333634]
+
+        # Create a ValueTracker for the angle
+        t = ValueTracker(0)
+
+        # Number of arrows to create
+        num_arrows = min(len(frequencies), len(amplitudes), len(phase))
+
+        scale = ValueTracker(1)
+
+        # Create a VGroup to hold all the arrows
+        arrows = VGroup()
+
+        # Loop to create arrows dynamically
+        for i in range(num_arrows):
+            arrow = always_redraw(lambda i=i: Arrow(
+                start=(ORIGIN if i == 0 else arrows[i - 1].get_end()),
+                end=(ORIGIN if i == 0 else arrows[i - 1].get_end()) +
+                    scale.get_value() * amplitudes[i] * RIGHT * np.cos(frequencies[i] * t.get_value() + phase[i]) +
+                    scale.get_value() * amplitudes[i] * UP * np.sin(frequencies[i] * t.get_value() + phase[i]),
+                color=PINK,
+                buff=0.0  # Add a small buffer to avoid overlap
+            ))
+            arrows.add(arrow)
+
+        # Add the arrows to the scene
+        self.add(arrows)
+
+        self.play(
+            scale.animate.set_value(0.5),
+            run_time=2,
+            rate_func=linear
+        )
+
+        # Pause for 2 seconds
+        self.wait(2)
+
+        # Add a traced path for the tip of the last arrow
+        trace = TracedPath(lambda: arrows[-1].get_end(), stroke_color=BLUE, stroke_width=4)
+        self.add(trace)
+
+        # Animate the rotation of the arrows
+        run_time = 2 * PI
+        self.play(
+            t.animate.set_value(run_time),
+            run_time=run_time,
+            rate_func=linear
+        )
+
+        # Pause to display the traced path
+        self.wait()
+
+class FourierSeriesIllustration(Scene):
+    def construct(self):
+        self.n_range = range(1, 11)
+
+        # Create axes and arrow
+        aaa_group = self.get_axes_arrow_axes()
+        aaa_group.shift(2 * UP)
+        aaa_group.shift_onto_screen()
+        axes1, arrow, axes2 = aaa_group
+
+        # Add target function graph to the second axes
+        target_func_graph = self.get_target_func_graph(axes2)
+        self.add(axes1, arrow, axes2, target_func_graph)  # Add all elements to the scene
+
+        # Generate sine graphs and partial sums
+        sine_graphs = self.get_sine_graphs(axes1)
+        partial_sums = self.get_partial_sums(axes1, sine_graphs)
+
+        # Add sine graphs and partial sums to the scene
+        for graph in sine_graphs:
+            self.play(Create(graph), run_time=1)
+        for partial_sum in partial_sums:
+            self.play(Create(partial_sum), run_time=1)
+
+    def get_axes_arrow_axes(self):
+        axes1 = Axes(
+            x_range=[0, 1, 0.25],
+            y_range=[-1, 1, 1],
+            x_length=4,
+            y_length=4,
+            axis_config={"include_tip": False}
+        )
+        axes1.add_coordinates()
+        axes2 = axes1.copy()
+
+        arrow = Arrow(LEFT, RIGHT, color=WHITE)
+        group = VGroup(axes1, arrow, axes2)
+        group.arrange(RIGHT, buff=MED_LARGE_BUFF)
+        return group
+
+    def get_sine_graphs(self, axes):
+        sine_graphs = VGroup(*[
+            axes.plot(self.generate_nth_func(n), color=color)
+            for n, color in zip(self.n_range, it.cycle([BLUE, GREEN, RED, YELLOW, PINK]))
+        ])
+        sine_graphs.set_stroke(width=3)
+        return sine_graphs
+
+    def get_partial_sums(self, axes, sine_graphs):
+        partial_sums = VGroup(*[
+            axes.plot(self.generate_kth_partial_sum_func(k + 1), color=graph.get_color())
+            for k, graph in enumerate(sine_graphs)
+        ])
+        return partial_sums
+
+    def get_sum_tex(self):
+        return MathTex(
+            "\\frac{4}{\\pi} \\left(",
+            "\\frac{\\cos(\\pi x)}{1}",
+            "-\\frac{\\cos(3\\pi x)}{3}",
+            "+\\frac{\\cos(5\\pi x)}{5}",
+            "- \\cdots \\right)"
+        ).scale(0.75)
+
+    def get_sum_tex_pieces(self, sum_tex):
+        return sum_tex[1:4]
+
+    def get_target_func_tex(self):
+        step_tex = MathTex(
+            """
+            1 \\quad \\text{if $x < 0.5$} \\\\
+            0 \\quad \\text{if $x = 0.5$} \\\\
+            -1 \\quad \\text{if $x > 0.5$} \\\\
+            """
+        )
+        lb = Brace(step_tex, LEFT, buff=SMALL_BUFF)
+        step_tex.add(lb)
+        return step_tex
+
+    def get_target_func_graph(self, axes):
+        # Create the step function graph
+        step_func = axes.plot(
+            lambda x: (1 if x < 0.5 else -1),
+            discontinuities=[0.5],
+            color=YELLOW,
+            stroke_width=3,
+        )
+        # Add a dot at the discontinuity
+        dot = Dot(axes.c2p(0.5, 0), color=step_func.get_color())
+        dot.scale(0.5)
+        # Group the step function and dot
+        step_func_group = VGroup(step_func, dot)
+        return step_func_group
+
+    def generate_nth_func(self, n):
+        return lambda x: (4 / PI) * (1 / n) * (-1)**((n - 1) / 2) * np.cos(PI * n * x)
+
+    def generate_kth_partial_sum_func(self, k):
+        return lambda x: sum([
+            self.generate_nth_func(n)(x)
+            for n in self.n_range[:k]
+        ])
