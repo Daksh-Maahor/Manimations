@@ -1,4 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:/home/daksh-maahor/Programming/Python/manimations/media/videos/main/2160p60/partial_movie_files/ThreeDCone/2356766457_4177152454_2195181980.mp4'
-file 'file:/home/daksh-maahor/Programming/Python/manimations/media/videos/main/2160p60/partial_movie_files/ThreeDCone/2536609621_1513083454_1047883144.mp4'
-file 'file:/home/daksh-maahor/Programming/Python/manimations/media/videos/main/2160p60/partial_movie_files/ThreeDCone/166513787_2968904986_1226244727.mp4'

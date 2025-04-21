@@ -1,2 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:/home/daksh-maahor/Programming/Python/manimations/media/videos/main/2000p60/partial_movie_files/SquareToCircle/3473473089_1911431882_557880437.mp4'

@@ -1,6 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:/home/dakshmaahor/Programming/Manim/Manimations/media/videos/main/2160p60/partial_movie_files/Test/1457378895_323232424_223132457.mp4'
-file 'file:/home/dakshmaahor/Programming/Manim/Manimations/media/videos/main/2160p60/partial_movie_files/Test/1993220219_3982128702_2926664993.mp4'
-file 'file:/home/dakshmaahor/Programming/Manim/Manimations/media/videos/main/2160p60/partial_movie_files/Test/1993220219_1280961796_4037660064.mp4'
-file 'file:/home/dakshmaahor/Programming/Manim/Manimations/media/videos/main/2160p60/partial_movie_files/Test/1993220219_1479119076_1774581089.mp4'
-file 'file:/home/dakshmaahor/Programming/Manim/Manimations/media/videos/main/2160p60/partial_movie_files/Test/1993220219_1754310298_1850059845.mp4'

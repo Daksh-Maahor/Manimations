@@ -1,8 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:/home/dakshmaahor/Programming/Python/Manim/Manimations/media/videos/main/2160p60/partial_movie_files/IntegralThroughReimannRectangles/1457378895_3879404456_223132457.mp4'
-file 'file:/home/dakshmaahor/Programming/Python/Manim/Manimations/media/videos/main/2160p60/partial_movie_files/IntegralThroughReimannRectangles/1993220219_2479946602_907594046.mp4'
-file 'file:/home/dakshmaahor/Programming/Python/Manim/Manimations/media/videos/main/2160p60/partial_movie_files/IntegralThroughReimannRectangles/1993220219_2999171683_3154390344.mp4'
-file 'file:/home/dakshmaahor/Programming/Python/Manim/Manimations/media/videos/main/2160p60/partial_movie_files/IntegralThroughReimannRectangles/1993220219_144541057_3361196005.mp4'
-file 'file:/home/dakshmaahor/Programming/Python/Manim/Manimations/media/videos/main/2160p60/partial_movie_files/IntegralThroughReimannRectangles/1993220219_3704697794_3514576272.mp4'
-file 'file:/home/dakshmaahor/Programming/Python/Manim/Manimations/media/videos/main/2160p60/partial_movie_files/IntegralThroughReimannRectangles/1993220219_1926558403_2677838682.mp4'
-file 'file:/home/dakshmaahor/Programming/Python/Manim/Manimations/media/videos/main/2160p60/partial_movie_files/IntegralThroughReimannRectangles/1993220219_1754310298_3085630066.mp4'
