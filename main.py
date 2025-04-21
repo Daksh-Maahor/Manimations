@@ -835,3 +835,161 @@ class IntegralThroughReimannRectangles(Scene):
 
         # Pause to display the final result
         self.wait()
+
+class ArcLength(Scene):
+    def get_arc_lines_on_function(self, graph, plane, dx=1, line_color=WHITE, line_width=1, x_min=None, x_max=None):
+
+        dots = VGroup()
+        lines = VGroup()
+        result = VGroup(dots, lines)
+
+        x_range = np.arange(x_min, x_max, dx)
+        colors = color_gradient([BLUE_B, GREEN_B], len(x_range))
+
+        for x, color in zip(x_range, colors):
+            p1 = Dot().scale(0.7).move_to(plane.input_to_graph_point(x, graph))
+            p2 = Dot().scale(0.7).move_to(plane.input_to_graph_point(x + dx, graph))
+            dots.add(p1, p2)
+            dots.set_fill(colors, opacity=0.8)
+
+            line = Line(
+                p1.get_center(),
+                p2.get_center(),
+                stroke_color=line_color,
+                stroke_width=line_width,
+            )
+            lines.add(line)
+
+        return result
+    
+    def construct(self):
+
+        axes = (
+            Axes(x_range=[-1, 4.1, 1], x_length=8, y_range=[0, 3.1, 1], y_length=6)
+            .to_edge(DL)
+            .add_coordinates()
+        )
+        labels = axes.get_axis_labels(x_label="x", y_label="f(x)")
+
+        graph = axes.plot(
+            lambda x: 0.1 * x * (x + 1) * (x - 3) + 1, x_range=[-1, 4], color=BLUE
+        )
+
+        # Mobjects for explaining construction of Line Integral
+        dist = ValueTracker(1)
+
+        dx = always_redraw(
+            lambda: DashedLine(
+                start=axes.c2p(2, graph.underlying_function(2)),
+                end=axes.c2p(2 + dist.get_value(), graph.underlying_function(2)),
+                stroke_color=GREEN,
+            )
+        )
+
+        dx_brace = always_redraw(lambda: Brace(dx).next_to(dx, DOWN, buff=0.1))
+        dx_text = always_redraw(
+            lambda: MathTex("dx").set(width=0.3).next_to(dx_brace, DOWN, buff=0)
+        )
+
+        dy = always_redraw(
+            lambda: DashedLine(
+                start=axes.c2p(
+                    2 + dist.get_value(),
+                    graph.underlying_function(2 + dist.get_value()),
+                ),
+                end=axes.c2p(2 + dist.get_value(), graph.underlying_function(2)),
+                stroke_color=GREEN,
+            )
+        )
+
+        dy_brace = always_redraw(
+            lambda: Brace(dy, direction=RIGHT).next_to(dy, RIGHT, buff=0.1)
+        )
+        dy_text = always_redraw(
+            lambda: MathTex("dy").set(width=0.3).next_to(dy_brace, RIGHT, buff=0)
+        )
+
+        dl = always_redraw(
+            lambda: Line(
+                start=axes.c2p(2, graph.underlying_function(2)),
+                end=axes.c2p(
+                    2 + dist.get_value(),
+                    graph.underlying_function(2 + dist.get_value()),
+                ),
+                stroke_color=YELLOW,
+            )
+        )
+
+        dl_brace = always_redraw(
+            lambda: BraceBetweenPoints(point_1=dl.get_end(), point_2=dl.get_start())
+        )
+        dl_text = always_redraw(
+            lambda: MathTex("dL")
+            .set(width=0.3)
+            .next_to(dl_brace, UP, buff=0)
+            .set_color(YELLOW)
+        )
+
+        demo_mobjects = VGroup(
+            dx, dx_brace, dx_text, dy, dy_brace, dy_text, dl, dl_brace, dl_text
+        )
+
+        # Adding the Latex Mobjects for Mini-Proof
+        helper_text = (
+            MathTex("dL \\ approximates \\ curve \\ as \\ dx\\ approaches \\ 0")
+            .set(width=6)
+            .to_edge(UR, buff=0.2)
+        )
+        line1 = MathTex("{dL}^{2}={dx}^{2}+{dy}^{2}")
+        line2 = MathTex("{dL}^{2}={dx}^{2}(1+(\\frac{dy}{dx})^{2})")
+        line3 = MathTex(
+            "dL = \\sqrt{ {dx}^{2}(1+(\\frac{dy}{dx})^{2}) }"
+        )  # Then using surds
+        line4 = MathTex("dL = \\sqrt{1 + (\\frac{dy}{dx})^{2} } dx")
+        proof = (
+            VGroup(line1, line2, line3, line4)
+            .scale(0.8)
+            .arrange(DOWN, aligned_edge=LEFT)
+            .next_to(helper_text, DOWN, buff=0.25)
+        )
+
+        box = SurroundingRectangle(helper_text)
+
+        # The actual line integral
+        dx_tracker = ValueTracker(1)  # Tracking the dx distance of line integral
+
+        line_integral = always_redraw(
+            lambda: self.get_arc_lines_on_function(
+                graph=graph,
+                plane=axes,
+                dx=dx_tracker.get_value(),
+                x_min=-1,
+                x_max=4,
+                line_color=RED,
+                line_width=5,
+            )
+        )
+
+        self.add(axes, labels, graph)
+
+        self.play(Create(dx), Create(dy), run_time=1)
+        self.play(Create(dl), run_time=1)
+
+        self.add(dx_brace, dx_text, dy_brace, dy_text, dl_brace, dl_text)
+
+        self.play(Write(line1), run_time=2)
+        self.play(Write(line2), run_time=2)
+        self.play(Write(line3), run_time=2)
+        self.play(Write(line4), run_time=2)
+        
+        self.play(Write(helper_text), run_time=2)
+        self.play(Create(box), run_time=1)
+
+        self.play(dist.animate.set_value(0.5), run_time=4)
+
+        self.play(FadeOut(demo_mobjects), FadeOut(line1, line2, line3, line4), run_time=2)
+
+        self.play(Create(line_integral), run_time=4)
+
+        self.play(dx_tracker.animate.set_value(0.2), run_time=4)
+        self.wait()
